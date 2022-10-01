@@ -1,0 +1,8 @@
+@keyframes scrollLeft {
+    0% {
+        background-position-x: 0px;
+    }
+    100% {
+        background-position-x: calc(var(--tileWidth) * -1);
+    }
+}

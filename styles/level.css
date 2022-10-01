@@ -11,7 +11,12 @@
 }
 
 .tile.waves {
-    background-color: white;
+    background-image: url(../gfx/waves.png);
+    background-size: cover;
+    animation-name: scrollLeft;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }
 
 .tile.sky {
@@ -23,5 +28,5 @@
 }
 
 .tile.open-water {
-    background-color: gray;
+    background-color: #797979;
 }
