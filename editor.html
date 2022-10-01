@@ -30,7 +30,7 @@
             width: 32px;
             height: 32px;
             line-height: 32px;
-            font-size: 20px;
+            font-size: 24px;
             text-align: center;
             border-radius: 3px;
             color: white;
@@ -52,7 +52,12 @@
 
         .buttons {
             position: fixed;
-            bottom: 0;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        button {
+            width: 170px;
         }
     </style>
 </head>
@@ -62,19 +67,22 @@
     <div class="layer decoration"></div>
 
     <div class="buttons">
-        <button onclick="addRow()">Add Row</button>
+        <button onclick="addRow()">Add Row</button><br/>
         <br/>
-        <button onclick="activate('data')">Activate data-layer</button>
-        <button onclick="activate('hidden')">Activate hidden-layer</button>
-        <button onclick="activate('decoration')">Activate decoration-layer</button>
+        <button onclick="activate('data')">Activate data-layer</button><br/>
+        <button onclick="activate('hidden')">Activate hidden-layer</button><br/>
+        <button onclick="activate('decoration')">Activate decoration-layer</button><br/>
         <br/>
-        <button onclick="saveData()">Save</button>
-        <button onclick="loadData()">Load</button>
-        <button onclick="printData()">Print</button>
+        <button onclick="saveData()">Save</button><br/>
+        <br/>
+        <button onclick="loadData()">Load</button><br/>
+        <button onclick="printData()">Print</button><br/>
     </div>
 
     <script>
         var columns = 32;
+        let selectedValue = 0;
+        let selectedBase = 0;
         var emptyRow = [];
 
         for (let i = 0; i < columns; i++) { emptyRow.push(0); }
@@ -106,11 +114,8 @@
 
                     element.addEventListener('mousedown', (e) => {
                         e.preventDefault();
-                        e.stopPropagation();
                         if (e.button == 0) {
-                            data[y][x] += 1;
-                        } else {
-                            data[y][x] -= 1;
+                            data[y][x] = selectedValue;
                         }
                         
                         updateView();
@@ -130,11 +135,8 @@
 
                     element.addEventListener('mousedown', (e) => {
                         e.preventDefault();
-                        e.stopPropagation();
                         if (e.button == 0) {
-                            hidden[y][x] += 1;
-                        } else {
-                            hidden[y][x] -= 1;
+                            hidden[y][x] = selectedValue;
                         }
                         
                         updateView();
@@ -154,11 +156,8 @@
                     
                     element.addEventListener('mousedown', (e) => {
                         e.preventDefault();
-                        e.stopPropagation();
                         if (e.button == 0) {
-                            decoration[y][x] += 1;
-                        } else {
-                            decoration[y][x] -= 1;
+                            decoration[y][x] = selectedValue;
                         }
                         
                         updateView();
@@ -206,6 +205,48 @@
                 'decoration = ' + JSON.stringify(decoration) + ';\n'
             );
         }
+
+        document.addEventListener('keydown', (e) => {
+            switch (e.code) {
+                case 'Digit0':
+                    selectedValue = selectedBase + 0;
+                    break;
+                case 'Digit1':
+                    selectedValue = selectedBase + 1;
+                    break;
+                case 'Digit2':
+                    selectedValue = selectedBase + 2;
+                    break;
+                case 'Digit3':
+                    selectedValue = selectedBase + 3;
+                    break;
+                case 'Digit4':
+                    selectedValue = selectedBase + 4;
+                    break;
+                case 'Digit5':
+                    selectedValue = selectedBase + 5;
+                    break;
+                case 'Digit6':
+                    selectedValue = selectedBase + 6;
+                    break;
+                case 'Digit7':
+                    selectedValue = selectedBase + 7;
+                    break;
+                case 'Digit8':
+                    selectedValue = selectedBase + 8;
+                    break;
+                case 'Digit9':
+                    selectedValue = selectedBase + 9;
+                    break;
+                case 'ArrowUp':
+                    selectedBase += 10;
+                    break;
+                case 'ArrowDown':
+                    selectedBase -= 10;
+                    break;
+                default:
+            }
+        })
 
         updateView();
     </script>
