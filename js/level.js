@@ -1,6 +1,6 @@
 export class Level {
-    width = 45;
-    height = 45;
+    tileWidth = 45;
+    tileHeight = 45;
     data = [
         [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -9,16 +9,16 @@ export class Level {
         [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2],
         [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2],
         [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2]
+        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2],
+        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2],
+        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2],
+        [2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2],
+        [2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2],
+        [2, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2],
+        [2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 9, 9, 2, 2],
+        [2, 2, 2, 2, 0, 0, 0, 0, 2, 1, 1, 1, 1, 2],
+        [2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
+        [2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2]
     ];
 
     constructor(_container) {
@@ -29,8 +29,8 @@ export class Level {
         let cssVars = document.createElement('style');
         cssVars.innerText = `
             :root {
-                --tileWidth: ${this.width}px;
-                --tileHeight: ${this.height}px;
+                --tileWidth: ${this.tileWidth}px;
+                --tileHeight: ${this.tileHeight}px;
             }
         `;
         document.head.appendChild(cssVars);
@@ -40,8 +40,8 @@ export class Level {
             rowData.forEach((tileData, x) => {
                 let newTile = document.createElement('div');
                 newTile.classList.add('tile');
-                newTile.style.top = `${y * this.height}px`;
-                newTile.style.left = `${x * this.width}px`;
+                newTile.style.top = `${y * this.tileHeight}px`;
+                newTile.style.left = `${x * this.tileWidth}px`;
 
                 switch (tileData) {
                     case 1:

@@ -8,6 +8,7 @@
     position: absolute;
     width: var(--tileWidth);
     height: var(--tileHeight);
+    z-index: 1;
 }
 
 .tile.waves {
@@ -24,9 +25,13 @@
 }
 
 .tile.ground {
-    background-color: black;
+    background-image: url(../gfx/ground.png);
+    background-size: cover;
+    transform: scale(1.3);
+    z-index: 10;
 }
 
 .tile.open-water {
     background-color: #797979;
+    z-index: 2;
 }
