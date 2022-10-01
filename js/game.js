@@ -53,9 +53,9 @@ export class Game {
 
     init() {
         // Add player
-        this.level = new Level(this.#canvas);
+        this.level = new Level(this, this.#canvas);
         this.player = new Player(this.level.dom);
-        this.player.setPosition(300, 60);
+        this.player.setPosition(300, 2 * this.level.tileHeight);
 
         // Start loop
         window.requestAnimationFrame((_t) => { this.#update(_t); });
@@ -63,7 +63,7 @@ export class Game {
 
     #update(_t) {
         this.#updateDelta();
-        let dt = this.timer.delta;
+        let dt = (this.timer.delta / 100.0);
 
         // Update player position
         this.player.update(dt, this);

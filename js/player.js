@@ -6,7 +6,10 @@ export class Player {
     }
     velocity = {
         x: 0,
-        y: 0
+        y: 0,
+        max: 7,
+        inc: 2,
+        dec: 0.5
     }
     air = 10000;
 
@@ -21,9 +24,32 @@ export class Player {
         let tileWidth = game.level.tileWidth;
         let tileHeight = game.level.tileHeight;
 
+        // Update velocity
+        if (game.input.up) { this.velocity.y = this.velocity.y < -this.velocity.max ? -this.velocity.max : this.velocity.y - this.velocity.inc * dt; }
+        if (game.input.down) { this.velocity.y = this.velocity.y > this.velocity.max ? this.velocity.max : this.velocity.y + this.velocity.inc * dt; }
+        if (game.input.left) { this.velocity.x = this.velocity.x < -this.velocity.max ? -this.velocity.max : this.velocity.x - this.velocity.inc * dt; }
+        if (game.input.right) { this.velocity.x = this.velocity.x > this.velocity.max ? this.velocity.max : this.velocity.x + this.velocity.inc * dt; }
+        if (!game.input.up && !game.input.down && this.velocity.y != 0) {
+            if (this.velocity.y > 0) {
+                this.velocity.y -= this.velocity.dec * dt;
+                if (this.velocity.y < 0) { this.velocity.y = 0; }
+            } else if (this.velocity.y < 0) {
+                this.velocity.y += this.velocity.dec * dt;
+                if (this.velocity.y > 0) { this.velocity.y = 0; }
+            }
+        }
+        if (!game.input.left && !game.input.right && this.velocity.x != 0) {
+            if (this.velocity.x > 0) {
+                this.velocity.x -= this.velocity.dec * dt;
+                if (this.velocity.x < 0) { this.velocity.x = 0; }
+            } else if (this.velocity.x < 0) {
+                this.velocity.x += this.velocity.dec * dt;
+                if (this.velocity.x > 0) { this.velocity.x = 0; }
+            }
+        }
+
         // Check horisontal position
-        if (game.input.left) { this.position.x -= 0.5 * dt; }
-        if (game.input.right) { this.position.x += 0.5 * dt; }
+        this.position.x += this.velocity.x * dt;
         currentTileX = Math.floor((this.position.x + (tileWidth / 2)) / tileWidth);
         currentTileY = Math.floor((this.position.y + (tileWidth / 2)) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
@@ -32,8 +58,7 @@ export class Player {
         }
 
         // Check vertical position
-        if (game.input.up) { this.position.y -= 0.5 * dt; }
-        if (game.input.down) { this.position.y += 0.5 * dt; }
+        this.position.y += this.velocity.y * dt;
         currentTileX = Math.floor((this.position.x + (tileWidth / 2)) / tileWidth);
         currentTileY = Math.floor((this.position.y + (tileWidth / 2)) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);

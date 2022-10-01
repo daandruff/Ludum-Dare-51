@@ -1,6 +1,6 @@
 export class Level {
-    tileWidth = 45;
-    tileHeight = 45;
+    tileWidth = 40;
+    tileHeight = 40;
     data = [
         [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -37,9 +37,10 @@ export class Level {
         [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
     ];
 
-    constructor(_container) {
+    constructor(_game, _container) {
         this.dom = document.createElement('div');
         this.dom.classList.add('level-container');
+        this.dom.style.left = `${_game.size.width / 2 - (this.data[0].length * this.tileWidth / 2)}px`
 
         // Add some css variables
         let cssVars = document.createElement('style');
