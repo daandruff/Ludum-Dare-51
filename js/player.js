@@ -81,7 +81,7 @@ export class Player {
         currentTileY = Math.floor((this.position.y + (playerHeight / 2) - 25) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
         if (currentTileDom.classList.contains('waves')) {
-            this.oxy += dt * 200;
+            this.oxy += dt * 500;
             if (this.oxy >= 10000) {
                 this.oxy = 10000;
             }
