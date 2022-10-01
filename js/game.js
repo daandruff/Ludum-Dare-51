@@ -1,4 +1,5 @@
 import { Level } from './level.js';
+import { Oxytank } from './oxytank.js';
 import { Player } from './player.js';
 
 export class Game {
@@ -55,6 +56,7 @@ export class Game {
         // Add player
         this.level = new Level(this, this.#canvas);
         this.player = new Player(this.level.dom);
+        this.oxytank = new Oxytank(this.#canvas);
         this.player.setPosition(250, 1.6 * this.level.tileHeight);
 
         // Start loop
@@ -67,6 +69,9 @@ export class Game {
 
         // Update player position
         this.player.update(dt, this);
+
+        // Update oxytank
+        this.oxytank.update(this.player.oxy / 10000);
 
         // Update map position
         if (this.player.position.y > this.size.height / 2) {

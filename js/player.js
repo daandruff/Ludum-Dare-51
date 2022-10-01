@@ -12,7 +12,7 @@ export class Player {
         inc: 2,
         dec: 0.5
     }
-    air = 10000;
+    oxy = 10000;
 
     constructor(_levelContainer) {
         this.dom.classList.add('player');
@@ -72,6 +72,22 @@ export class Player {
         // Update player position
         this.dom.style.left = `${this.position.x}px`;
         this.dom.style.top = `${this.position.y}px`;
+
+        // Update oxy
+        currentTileX = Math.floor((this.position.x + (tileWidth / 2)) / tileWidth);
+        currentTileY = Math.floor((this.position.y - (tileWidth / 2)) / tileHeight);
+        currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
+        if (!currentTileDom.classList.contains('open-water')) {
+            this.oxy += dt * 100;
+            if (this.oxy >= 10000) {
+                this.oxy = 10000;
+            }
+        } else {
+            this.oxy -= dt * 100;
+            if (this.oxy <= 0) {
+                this.oxy = 0;
+            }
+        }
 
         // Set player rotation
         if (this.velocity.x != 0 || this.velocity.y != 0) {
