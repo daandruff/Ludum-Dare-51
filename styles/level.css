@@ -28,6 +28,11 @@
     background-size: cover;
     transform: scale(1.3);
     z-index: 10;
+
+    animation: ground-wiggle;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }
 
 .tile.open-water {

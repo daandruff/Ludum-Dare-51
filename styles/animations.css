@@ -20,3 +20,17 @@
         transform: rotateY(-30deg);
     }
 }
+
+@keyframes ground-wiggle {
+    0% {
+        transform: scale(1.4) translateX(5%)
+    }
+
+    50% {
+        transform: scale(1.4) translateX(-5%)
+    }
+
+    100% {
+        transform: scale(1.4) translateX(5%)
+    }
+}

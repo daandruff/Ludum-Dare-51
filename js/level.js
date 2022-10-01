@@ -59,6 +59,7 @@ export class Level {
                 newTile.classList.add('tile');
                 newTile.style.top = `${y * this.tileHeight}px`;
                 newTile.style.left = `${x * this.tileWidth}px`;
+                newTile.style.animationDelay = `-${y / 2}s`;
 
                 switch (tileData) {
                     case 1:
