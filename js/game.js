@@ -73,6 +73,9 @@ export class Game {
         // Update oxytank
         this.oxytank.update(this.player.oxy / 10000);
 
+        // Update level
+        this.level.update(dt);
+
         // Update map position
         if (this.player.position.y > this.size.height / 2) {
             this.level.dom.style.top = `${Math.floor(this.size.height / 2 - this.player.position.y)}px`;

@@ -62,6 +62,23 @@ export class Level {
         [0, 0, 0, 2, 2],
     ];
 
+    decoration = [
+        [],
+        [],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+        [],
+        [],
+        [],
+        [],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [],
+        [0, 0, 1],
+    ];
+
+    dustCooldown = 200;
+
     constructor(_game, _container) {
         this.dom = document.createElement('div');
         this.dom.classList.add('level-container');
@@ -113,9 +130,42 @@ export class Level {
                     newHidden.style.animationDelay = `-${y / 2}s`;
                     this.dom.appendChild(newHidden);
                 }
+
+                // Add decorations
+                if (this.decoration[y] && this.decoration[y][x] > 0) {
+                    let newDecoration = document.createElement('div');
+                    newDecoration.classList.add('tile', `decoration-${this.decoration[y][x]}`);
+                    newDecoration.style.top = `${y * this.tileHeight}px`;
+                    newDecoration.style.left = `${x * this.tileWidth}px`;
+                    newDecoration.style.animationDelay = `-${y / 2.0}s`;
+                    this.dom.appendChild(newDecoration);
+                    console.log(newDecoration);
+                }
             }); 
         });
 
         _container.appendChild(this.dom);
+    }
+
+    update(_dt) {
+        this.dustCooldown -= _dt * 100;
+        if (this.dustCooldown <= 0) {
+            this.dustCooldown = Math.random() * 200;
+
+            let allOpenWater = this.dom.querySelectorAll('.open-water');
+            let selectedOpenWater = allOpenWater[Math.floor(Math.random() * allOpenWater.length)]
+            let selectedX = parseFloat(selectedOpenWater.style.left.replace('px', ''));
+            let selectedY = parseFloat(selectedOpenWater.style.top.replace('px', ''));
+
+            
+            let dustSprite = document.createElement('div');
+            dustSprite.classList.add('dust');
+            dustSprite.style.top = `${selectedY + this.tileHeight / 2}px`;
+            dustSprite.style.left = `${selectedX + this.tileWidth / 2}px`;
+            dustSprite.style.scale = `${Math.random() * 1}`;
+            this.dom.appendChild(dustSprite);
+            
+            setTimeout(() => { dustSprite.parentNode.removeChild(dustSprite); }, 1000);
+        }
     }
 }

@@ -53,3 +53,25 @@
     background-color: #797979;
     z-index: 2;
 }
+
+.tile.decoration-1 {
+    background-image: url(../gfx/seaweed.png);
+    background-size: cover;
+    background-position: 0 0;
+    z-index: 3;
+
+    animation: seaweed 1s steps(6) infinite;
+}
+
+.dust {
+    position: absolute;
+    width: calc(var(--tileWidth) / 6);
+    height: calc(var(--tileWidth) / 6);
+    background-color: black;
+    border-radius: 25%;
+    z-index: 3;
+
+    animation: bubbles;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+}
