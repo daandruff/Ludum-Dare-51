@@ -50,3 +50,16 @@
     background-repeat: no-repeat;
     background-position: 0 0;
 }
+
+.bubble {
+    position: absolute;
+    width: calc(var(--tileWidth) / 4);
+    height: calc(var(--tileWidth) / 4);
+    background-color: white;
+    border-radius: 25%;
+    z-index: 3;
+
+    animation: bubbles;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+}

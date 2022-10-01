@@ -56,3 +56,49 @@
         transform: translateY(5%) rotate(5deg);
     }
 }
+
+@keyframes bubbles {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-10%, -15%);
+    }
+
+    20% {
+        transform: translate(0, -30%);
+    }
+
+    30% {
+        transform: translate(10%, -45%);
+    }
+
+    40% {
+        transform: translate(0, -60%);
+    }
+
+    50% {
+        transform: translate(-10%, -75%);
+    }
+
+    60% {
+        transform: translate(0, -100%);
+    }
+
+    70% {
+        transform: translate(10%, -115%);
+    }
+
+    80% {
+        transform: translate(0, -130%);
+    }
+
+    90% {
+        transform: translate(-10%, -145%);
+    }
+
+    100% {
+        transform: translate(0, -160%);
+    }
+}

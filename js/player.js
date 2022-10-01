@@ -13,6 +13,7 @@ export class Player {
         dec: 0.5
     }
     oxy = 10000;
+    bubble = 500;
 
     constructor(_levelContainer) {
         this.dom.classList.add('player');
@@ -26,6 +27,8 @@ export class Player {
         let currentTileX, currentTileY, currentTileDom;
         let tileWidth = game.level.tileWidth;
         let tileHeight = game.level.tileHeight;
+        let playerWidth = tileWidth * 1.5;
+        let playerHeight = tileHeight * 1.5;
 
         // Update velocity
         if (game.input.up) { this.velocity.y = this.velocity.y < -this.velocity.max ? -this.velocity.max : this.velocity.y - this.velocity.inc * dt; }
@@ -53,8 +56,8 @@ export class Player {
 
         // Check horisontal position
         this.position.x += this.velocity.x * dt;
-        currentTileX = Math.floor((this.position.x + (tileWidth / 2)) / tileWidth);
-        currentTileY = Math.floor((this.position.y + (tileWidth / 2)) / tileHeight);
+        currentTileX = Math.floor((this.position.x + (playerWidth / 2)) / tileWidth);
+        currentTileY = Math.floor((this.position.y + (playerHeight / 2)) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
         if (!currentTileDom || !currentTileDom.classList.contains('open-water')) {
             this.position.x = currentPosition.x;
@@ -62,8 +65,8 @@ export class Player {
 
         // Check vertical position
         this.position.y += this.velocity.y * dt;
-        currentTileX = Math.floor((this.position.x + (tileWidth / 2)) / tileWidth);
-        currentTileY = Math.floor((this.position.y + (tileWidth / 2)) / tileHeight);
+        currentTileX = Math.floor((this.position.x + (playerWidth / 2)) / tileWidth);
+        currentTileY = Math.floor((this.position.y + (playerHeight / 2)) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
         if (!currentTileDom || !currentTileDom.classList.contains('open-water')) {
             this.position.y = currentPosition.y;
@@ -74,8 +77,8 @@ export class Player {
         this.dom.style.top = `${this.position.y}px`;
 
         // Update oxy (Current tile now refers to a tile above)
-        currentTileX = Math.floor((this.position.x + (tileWidth / 2)) / tileWidth);
-        currentTileY = Math.floor((this.position.y + (tileWidth / 2) - 10) / tileHeight);
+        currentTileX = Math.floor((this.position.x + (playerWidth / 2)) / tileWidth);
+        currentTileY = Math.floor((this.position.y + (playerHeight / 2) - 25) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
         if (!currentTileDom.classList.contains('open-water')) {
             this.oxy += dt * 100;
@@ -87,6 +90,19 @@ export class Player {
             if (this.oxy <= 0) {
                 this.oxy = 10000;
                 this.setPosition(250, 1.6 * game.level.tileHeight);
+            }
+
+            // Add bubble particles
+            this.bubble -= dt * 100;
+            if (this.bubble <= 0) {
+                let bubbleSprite = document.createElement('div');
+                bubbleSprite.classList.add('bubble');
+                bubbleSprite.style.top = `${this.position.y + playerHeight / 2}px`;
+                bubbleSprite.style.left = `${this.position.x + playerWidth / 2}px`;
+                bubbleSprite.style.scale = `${Math.random() * 1}`;
+                game.level.dom.appendChild(bubbleSprite);
+                setTimeout(() => { bubbleSprite.parentNode.removeChild(bubbleSprite); }, 1000);
+                this.bubble = Math.random() * 250;
             }
         }
 
