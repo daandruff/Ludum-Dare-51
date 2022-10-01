@@ -139,7 +139,6 @@ export class Level {
                     newDecoration.style.left = `${x * this.tileWidth}px`;
                     newDecoration.style.animationDelay = `-${y / 2.0}s`;
                     this.dom.appendChild(newDecoration);
-                    console.log(newDecoration);
                 }
             }); 
         });
@@ -150,19 +149,19 @@ export class Level {
     update(_dt) {
         this.dustCooldown -= _dt * 100;
         if (this.dustCooldown <= 0) {
-            this.dustCooldown = Math.random() * 200;
+            this.dustCooldown = Math.random() * 50;
 
             let allOpenWater = this.dom.querySelectorAll('.open-water');
             let selectedOpenWater = allOpenWater[Math.floor(Math.random() * allOpenWater.length)]
             let selectedX = parseFloat(selectedOpenWater.style.left.replace('px', ''));
             let selectedY = parseFloat(selectedOpenWater.style.top.replace('px', ''));
 
-            
             let dustSprite = document.createElement('div');
             dustSprite.classList.add('dust');
-            dustSprite.style.top = `${selectedY + this.tileHeight / 2}px`;
+            dustSprite.style.top = `${selectedY + this.tileHeight}px`;
             dustSprite.style.left = `${selectedX + this.tileWidth / 2}px`;
-            dustSprite.style.scale = `${Math.random() * 1}`;
+            dustSprite.style.scale = `${Math.random() * 3}`;
+            dustSprite.style.opacity = `${Math.random()}`;
             this.dom.appendChild(dustSprite);
             
             setTimeout(() => { dustSprite.parentNode.removeChild(dustSprite); }, 1000);

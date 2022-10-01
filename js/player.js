@@ -101,7 +101,7 @@ export class Player {
                 bubbleSprite.style.left = `${this.position.x + playerWidth / 2}px`;
                 bubbleSprite.style.scale = `${Math.random() * 1}`;
                 game.level.dom.appendChild(bubbleSprite);
-                setTimeout(() => { bubbleSprite.parentNode.removeChild(bubbleSprite); }, 1000);
+                setTimeout(() => { bubbleSprite.parentNode.removeChild(bubbleSprite); }, 2000);
                 this.bubble = Math.random() * 250;
             }
         }

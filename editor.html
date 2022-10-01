@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oxylunky - Editor</title>
+
+    <style>
+        body {
+            margin: 0;
+            margin-bottom: 200px;
+        }
+
+        .layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .layer.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .tile {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 3px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .data .tile {
+            background-color: red;
+        }
+
+        .hidden .tile {
+            background-color: green;
+        }
+
+        .decoration .tile {
+            background-color: blue;
+        }
+
+        .buttons {
+            position: fixed;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="layer data active"></div>
+    <div class="layer hidden"></div>
+    <div class="layer decoration"></div>
+
+    <div class="buttons">
+        <button onclick="addRow()">Add Row</button>
+        <br/>
+        <button onclick="activate('data')">Activate data-layer</button>
+        <button onclick="activate('hidden')">Activate hidden-layer</button>
+        <button onclick="activate('decoration')">Activate decoration-layer</button>
+        <br/>
+        <button onclick="saveData()">Save</button>
+        <button onclick="loadData()">Load</button>
+        <button onclick="printData()">Print</button>
+    </div>
+
+    <script>
+        var columns = 32;
+        var emptyRow = [];
+
+        for (let i = 0; i < columns; i++) { emptyRow.push(0); }
+
+        let data = [];
+        let hidden = [];
+        let decoration = [];
+
+        data.push([...emptyRow]);
+        hidden.push([...emptyRow]);
+        decoration.push([...emptyRow]);
+
+        function updateView() {
+            let dataDom = document.querySelector('.layer.data');
+            let hiddenDom = document.querySelector('.layer.hidden');
+            let decorationDom = document.querySelector('.layer.decoration');
+
+            dataDom.innerHTML = '';
+            hiddenDom.innerHTML = '';
+            decorationDom.innerHTML = '';
+
+            data.forEach((row, y) => {
+                row.forEach((val, x) => {
+                    let element = document.createElement('div');
+                    element.classList.add('tile');
+                    element.style.top = `${y * (32 + 2)}px`;
+                    element.style.left = `${x * (32 + 2)}px`;
+                    element.innerHTML = `${val}`;
+
+                    element.addEventListener('mousedown', (e) => {
+                        e.preventDefault();
+                        if (e.button == 0) {
+                            data[y][x] += 1;
+                        } else {
+                            data[y][x] -= 1;
+                        }
+                        
+                        updateView();
+                    });
+
+                    dataDom.appendChild(element);
+                });
+            });
+
+            hidden.forEach((row, y) => {
+                row.forEach((val, x) => {
+                    let element = document.createElement('div');
+                    element.classList.add('tile');
+                    element.style.top = `${y * (32 + 2)}px`;
+                    element.style.left = `${x * (32 + 2)}px`;
+                    element.innerText = val;
+
+                    element.addEventListener('mousedown', (e) => {
+                        e.preventDefault();
+                        if (e.button == 0) {
+                            hidden[y][x] += 1;
+                        } else {
+                            hidden[y][x] -= 1;
+                        }
+                        
+                        updateView();
+                    });
+
+                    hiddenDom.appendChild(element);
+                });
+            });
+
+            decoration.forEach((row, y) => {
+                row.forEach((val, x) => {
+                    let element = document.createElement('div');
+                    element.classList.add('tile');
+                    element.style.top = `${y * (32 + 2)}px`;
+                    element.style.left = `${x * (32 + 2)}px`;
+                    element.innerText = val;
+                    
+                    element.addEventListener('mousedown', (e) => {
+                        e.preventDefault();
+                        if (e.button == 0) {
+                            decoration[y][x] += 1;
+                        } else {
+                            decoration[y][x] -= 1;
+                        }
+                        
+                        updateView();
+                    });
+
+                    decorationDom.appendChild(element);
+                });
+            });
+        }
+
+        function saveData() {
+            localStorage.setItem('data', JSON.stringify(data));
+            localStorage.setItem('hidden', JSON.stringify(hidden));
+            localStorage.setItem('decoration', JSON.stringify(decoration));
+        }
+
+        function loadData() {
+            data = JSON.parse(localStorage.getItem('data'));
+            hidden = JSON.parse(localStorage.getItem('hidden'));
+            decoration = JSON.parse(localStorage.getItem('decoration'));
+
+            updateView();
+        }
+
+        function addRow() {
+            data.push([...emptyRow]);
+            hidden.push([...emptyRow]);
+            decoration.push([...emptyRow]);
+
+            updateView();
+        }
+
+        function activate(_layer) {
+            document.querySelectorAll('.layer').forEach(el => {
+                el.classList.remove('active');
+            })
+
+            document.querySelector(`.layer.${_layer}`)?.classList.add('active');
+        }
+
+        function printData() {
+            console.log(
+                'data = ' + JSON.stringify(data) + ';\n' +
+                'hidden = ' + JSON.stringify(hidden) + ';\n' +
+                'decoration = ' + JSON.stringify(decoration) + ';\n'
+            );
+        }
+
+        updateView();
+    </script>
+</body>
+</html>
