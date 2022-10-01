@@ -27,18 +27,18 @@
 .oxytank,
 .oxytank-overlay {
     position: absolute;
-    top: 100px;
-    left: 80px;
     width: 258px;
     height: 501px;
     z-index: 50;
 }
 
 .oxytank {
+    scale: 0.4;
+    translate: -50px -140px;
     background-image: url(../gfx/oxytank_empty.png);
     filter: drop-shadow(10px 10px 0 #222);
     animation-name: oxy-rest;
-    animation-duration: 4s;
+    animation-duration: 10s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }

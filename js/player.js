@@ -75,7 +75,7 @@ export class Player {
 
         // Update oxy
         currentTileX = Math.floor((this.position.x + (tileWidth / 2)) / tileWidth);
-        currentTileY = Math.floor((this.position.y - (tileWidth / 2)) / tileHeight);
+        currentTileY = Math.floor((this.position.y + (tileWidth / 2) - 10) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
         if (!currentTileDom.classList.contains('open-water')) {
             this.oxy += dt * 100;
