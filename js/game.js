@@ -4,6 +4,11 @@ import { Player } from './player.js';
 export class Game {
     #canvas = document.createElement('div');
 
+    size = {
+        width: 0,
+        height: 0
+    }
+
     timer = {
         start: Date.now(),
         lastFrame: Date.now(),
@@ -24,6 +29,10 @@ export class Game {
         this.#canvas.style.height = `${_height}px`;
         this.#canvas.classList.add(_class);
         document.body.appendChild(this.#canvas);
+
+        // Save size
+        this.size.width = _width;
+        this.size.height = _height;
 
         // Add event listeners for input
         document.addEventListener('keydown', (e) => {
@@ -56,7 +65,15 @@ export class Game {
         this.#updateDelta();
         let dt = this.timer.delta;
 
+        // Update player position
         this.player.update(dt, this);
+
+        // Update map position
+        if (this.player.position.y > this.size.height / 2) {
+            this.level.dom.style.top = `${this.size.height / 2 - this.player.position.y}px`;
+        } else {
+            this.level.dom.style.top = '0px';
+        }
 
         window.requestAnimationFrame((_t) => { this.#update(_t); });
     }
