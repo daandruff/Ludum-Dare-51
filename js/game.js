@@ -55,7 +55,7 @@ export class Game {
         // Add player
         this.level = new Level(this, this.#canvas);
         this.player = new Player(this.level.dom);
-        this.player.setPosition(300, 2 * this.level.tileHeight);
+        this.player.setPosition(250, 1.6 * this.level.tileHeight);
 
         // Start loop
         window.requestAnimationFrame((_t) => { this.#update(_t); });

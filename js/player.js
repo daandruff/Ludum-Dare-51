@@ -1,5 +1,6 @@
 export class Player {
     dom = document.createElement('div');
+    sprite = document.createElement('div');
     position = {
         x: 0,
         y: 0
@@ -15,6 +16,8 @@ export class Player {
 
     constructor(_levelContainer) {
         this.dom.classList.add('player');
+        this.sprite.classList.add('player-sprite');
+        this.dom.appendChild(this.sprite);
         _levelContainer.appendChild(this.dom);
     }
 
@@ -66,8 +69,19 @@ export class Player {
             this.position.y = currentPosition.y;
         }
 
+        // Update player position
         this.dom.style.left = `${this.position.x}px`;
         this.dom.style.top = `${this.position.y}px`;
+
+        // Set player rotation
+        if (this.velocity.x != 0 || this.velocity.y != 0) {
+            let rad = Math.atan2(this.velocity.y, this.velocity.x);
+            let rot = (rad / Math.PI) * 180;
+            this.dom.style.transform = `rotate(${rot + 90}deg)`;
+            this.sprite.classList.add('swimming');
+        } else {
+            this.sprite.classList.remove('swimming');
+        }
     }
 
     setPosition(x, y) {

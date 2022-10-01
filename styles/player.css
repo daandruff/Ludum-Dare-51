@@ -1,8 +1,25 @@
 .player {
     position: absolute;
-    width: var(--tileWidth);
-    height: var(--tileHeight);
-    background-color: red;
+    width: calc(var(--tileWidth) * 1.5);
+    height: calc(var(--tileHeight) * 1.5);
     z-index: 5;
-    border-radius: 100%;
+    perspective: 50px;
+    transform-style: preserve-3d;
+}
+
+.player-sprite {
+    position: absolute;
+    width: calc(var(--tileWidth) * 1.5);
+    height: calc(var(--tileHeight) * 1.5);
+    background-image: url(../gfx/player.png);
+    background-size: contain;
+
+    animation: swim;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.player-sprite.swimming {
+    animation-duration: 0.5s;
 }
