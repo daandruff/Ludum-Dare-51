@@ -1,3 +1,5 @@
+import { Level } from './level.js';
+
 export class Game {
     #canvas = document.createElement('div');
 
@@ -15,6 +17,7 @@ export class Game {
     }
 
     init() {
+        this.level = new Level(this.#canvas);
         window.requestAnimationFrame((_t) => { this.#update(_t); });
     }
 

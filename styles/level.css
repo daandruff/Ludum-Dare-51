@@ -1,0 +1,27 @@
+.level-container {
+    position: relative;
+    top: 0;
+    left: 25%;
+}
+
+.tile {
+    position: absolute;
+    width: var(--tileWidth);
+    height: var(--tileHeight);
+}
+
+.tile.waves {
+    background-color: white;
+}
+
+.tile.sky {
+    background-color: white;
+}
+
+.tile.ground {
+    background-color: black;
+}
+
+.tile.open-water {
+    background-color: gray;
+}
