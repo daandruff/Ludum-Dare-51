@@ -102,10 +102,11 @@
                     element.classList.add('tile');
                     element.style.top = `${y * (32 + 2)}px`;
                     element.style.left = `${x * (32 + 2)}px`;
-                    element.innerHTML = `${val}`;
+                    element.innerHTML = `${val == 0 ? '' : val}`;
 
                     element.addEventListener('mousedown', (e) => {
                         e.preventDefault();
+                        e.stopPropagation();
                         if (e.button == 0) {
                             data[y][x] += 1;
                         } else {
@@ -125,10 +126,11 @@
                     element.classList.add('tile');
                     element.style.top = `${y * (32 + 2)}px`;
                     element.style.left = `${x * (32 + 2)}px`;
-                    element.innerText = val;
+                    element.innerHTML = `${val == 0 ? '' : val}`;
 
                     element.addEventListener('mousedown', (e) => {
                         e.preventDefault();
+                        e.stopPropagation();
                         if (e.button == 0) {
                             hidden[y][x] += 1;
                         } else {
@@ -148,10 +150,11 @@
                     element.classList.add('tile');
                     element.style.top = `${y * (32 + 2)}px`;
                     element.style.left = `${x * (32 + 2)}px`;
-                    element.innerText = val;
+                    element.innerHTML = `${val == 0 ? '' : val}`;
                     
                     element.addEventListener('mousedown', (e) => {
                         e.preventDefault();
+                        e.stopPropagation();
                         if (e.button == 0) {
                             decoration[y][x] += 1;
                         } else {
