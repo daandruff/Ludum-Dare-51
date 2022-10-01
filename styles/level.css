@@ -10,6 +10,20 @@
     z-index: 1;
 }
 
+.tile.hidden {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+    /*background: red !important;*/
+}
+
+.tile.hidden.found {
+    transition: opacity 1s, scale 1s, translate 1s;
+    opacity: 0;
+    scale: 0;
+    translate: 0 -50%
+}
+
 .tile.waves {
     background-image: url(../gfx/waves.png);
     background-size: cover;

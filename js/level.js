@@ -37,6 +37,31 @@ export class Level {
         [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
     ];
 
+    hidden = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [0, 0, 0, 2, 2],
+    ];
+
     constructor(_game, _container) {
         this.dom = document.createElement('div');
         this.dom.classList.add('level-container');
@@ -78,6 +103,16 @@ export class Level {
                 newTile.classList.add(`x${x}y${y}`);
 
                 this.dom.appendChild(newTile);
+
+                // Add hidden areas
+                if (this.hidden[y] && this.hidden[y][x] > 0) {
+                    let newHidden = document.createElement('div');
+                    newHidden.classList.add('tile', 'ground', 'hidden', `hidden-${this.hidden[y][x]}`);
+                    newHidden.style.top = `${y * this.tileHeight}px`;
+                    newHidden.style.left = `${x * this.tileWidth}px`;
+                    newHidden.style.animationDelay = `-${y / 2}s`;
+                    this.dom.appendChild(newHidden);
+                }
             }); 
         });
 

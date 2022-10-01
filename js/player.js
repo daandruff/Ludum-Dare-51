@@ -73,7 +73,7 @@ export class Player {
         this.dom.style.left = `${this.position.x}px`;
         this.dom.style.top = `${this.position.y}px`;
 
-        // Update oxy
+        // Update oxy (Current tile now refers to a tile above)
         currentTileX = Math.floor((this.position.x + (tileWidth / 2)) / tileWidth);
         currentTileY = Math.floor((this.position.y + (tileWidth / 2) - 10) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
@@ -85,8 +85,18 @@ export class Player {
         } else {
             this.oxy -= dt * 100;
             if (this.oxy <= 0) {
-                this.oxy = 0;
+                this.oxy = 10000;
+                this.setPosition(250, 1.6 * game.level.tileHeight);
             }
+        }
+
+        // Check hidden
+        if (game.level.hidden[currentTileY] && game.level.hidden[currentTileY][currentTileX]) {
+            let hiddenData = game.level.hidden[currentTileY][currentTileX];
+            let allFoundBlocks = game.level.dom.querySelectorAll(`.hidden.hidden-${hiddenData}`);
+            allFoundBlocks.forEach(element => {
+                element.classList.add('found');
+            })
         }
 
         // Set player rotation
