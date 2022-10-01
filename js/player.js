@@ -80,7 +80,7 @@ export class Player {
         currentTileX = Math.floor((this.position.x + (playerWidth / 2)) / tileWidth);
         currentTileY = Math.floor((this.position.y + (playerHeight / 2) - 25) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
-        if (!currentTileDom.classList.contains('open-water')) {
+        if (currentTileDom.classList.contains('waves')) {
             this.oxy += dt * 100;
             if (this.oxy >= 10000) {
                 this.oxy = 10000;
