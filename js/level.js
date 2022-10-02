@@ -75,7 +75,7 @@ export class Level {
         _container.appendChild(this.dom);
     }
 
-    update(_dt) {
+    update(_dt, _game) {
         this.dustCooldown -= _dt * 100;
         if (this.dustCooldown <= 0) {
             this.dustCooldown = Math.random() * 50;
@@ -95,5 +95,20 @@ export class Level {
             
             setTimeout(() => { dustSprite.parentNode.removeChild(dustSprite); }, 1000);
         }
+
+        let allTiles = this.dom.querySelectorAll('.tile');
+        let levelTop = parseFloat(this.dom.style.top.replace('px', ''));
+        allTiles.forEach((tile) => {
+            let top = parseFloat(tile.style.top.replace('px', ''));
+            if (top > levelTop - this.tileHeight && top < _game.size.height - levelTop) {
+                if (tile.style.display != 'block') {
+                    tile.style.display = 'block';
+                }
+            } else {
+                if (tile.style.display != 'none') {
+                    tile.style.display = 'none';
+                }
+            }
+        });
     }
 }

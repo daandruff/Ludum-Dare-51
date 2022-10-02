@@ -103,7 +103,7 @@ export class Game {
         this.oxytank.update(this.player.oxy / 10000);
 
         // Update level
-        this.level.update(dt);
+        this.level.update(dt, this);
 
         // Update map position
         if (this.player.position.y > this.size.height / 2) {
