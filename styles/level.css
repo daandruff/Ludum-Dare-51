@@ -63,7 +63,8 @@
     animation: seaweed 1s steps(6) infinite;
 }
 
-.dust {
+.dust,
+.dust-hidden {
     position: absolute;
     width: calc(var(--tileWidth) / 6);
     height: calc(var(--tileWidth) / 6);
@@ -72,6 +73,13 @@
     z-index: 3;
 
     animation: bubbles;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+}
+
+.dust-hidden {
+    background-color: white;
+    animation: bubbles-down;
     animation-duration: 1s;
     animation-timing-function: linear;
 }

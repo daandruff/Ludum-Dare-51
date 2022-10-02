@@ -84,3 +84,7 @@ button {
     padding-bottom: 30px;
     border-radius: 10px;
 }
+
+.black-box .message p {
+    font-size: 22px;
+}

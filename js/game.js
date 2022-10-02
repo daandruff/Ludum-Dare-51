@@ -177,6 +177,7 @@ export class Game {
                 <p>
                     If you look carefully, hidden areas<br/>
                     have a small tell to look for.<br/>
+                    (Not all of them though)
                 </p>
                 <button onclick="myGame.drawInfo('none-release')">Oh, cool thanks!</button>
             </div>
@@ -193,11 +194,11 @@ export class Game {
                 <p>
                     You made it to the depest part of the
                     sea. You died ${this.stats.deaths} times and
-                    found ${this.stats.found.length} of ${this.stats.foundMax} secret areas.
+                    found ${this.stats.found.length - 1} of ${this.stats.foundMax} secret areas.
                     The trip took you ${Math.floor((time / 1000) / 60)} minutes and ${Math.floor(time / 1000) % 60} seconds.<br/>
                     Think you can do it better?
                 </p>
-                <button onclick="myGame.drawInfo('none-release')">Maybe?</button>
+                <button onclick="location.reload()">Maybe?</button>
             </div>
             `;
             this.#blackbox.classList.remove('hidden');
