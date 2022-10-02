@@ -27,6 +27,12 @@ export class Game {
         heart: new Howl({ src: [window.location.href + '/snd/amb_heart.mp3'], loop: true }),
     };
 
+    sfx = {
+        splash: new Howl({ src: [window.location.href + '/snd/splash.mp3'], loop: false }),
+        dive: new Howl({ src: [window.location.href + '/snd/dive.mp3'], loop: false }),
+        discovery: new Howl({ src: [window.location.href + '/snd/discovery.mp3'], loop: false }),
+    }
+
     timer = {
         start: Date.now(),
         lastFrame: Date.now(),
@@ -80,6 +86,11 @@ export class Game {
             if (e.code === 'ArrowDown') { this.input.down = false; }
             if (e.code === 'Space') { this.input.search = false; }
         });
+
+        // Set sfx sound levels
+        this.sfx.splash.volume(0.5);
+        this.sfx.dive.volume(0.5);
+        this.sfx.discovery.volume(0.5);
 
         // Set all sound levels to 0
         this.ambiance.air.volume(1);

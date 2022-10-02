@@ -14,6 +14,10 @@ export class Player {
     }
     oxy = 10000;
     bubble = 500;
+    wasInWater = false;
+    wasInAir = true;
+    splashCooldown = 0;
+    diveCooldown = 0;
 
     constructor(_levelContainer) {
         this.dom.classList.add('player');
@@ -29,6 +33,10 @@ export class Player {
         let tileHeight = game.level.tileHeight;
         let playerWidth = tileWidth * 1.5;
         let playerHeight = tileHeight * 1.5;
+
+        // Sound cooldown
+        this.splashCooldown = this.splashCooldown < 0 ? 0 : this.splashCooldown - dt * 100;
+        this.diveCooldown = this.diveCooldown < 0 ? 0 : this.diveCooldown - dt * 100;
 
         // Update velocity
         if (game.input.up) { this.velocity.y = this.velocity.y < -this.velocity.max ? -this.velocity.max : this.velocity.y - this.velocity.inc * dt; }
@@ -81,6 +89,13 @@ export class Player {
         currentTileY = Math.floor((this.position.y + (playerHeight / 2) - 25) / tileHeight);
         currentTileDom = game.level.dom.querySelector(`.tile.x${currentTileX}y${currentTileY}`);
         if (currentTileDom.classList.contains('waves')) {
+            this.wasInAir = true;
+            if (this.wasInWater && this.splashCooldown == 0) {
+                game.sfx.splash.play();
+                this.wasInWater = false;
+                this.splashCooldown = 1000;
+            }
+
             this.oxy += dt * 500;
             if (this.oxy >= 10000) {
                 this.oxy = 10000;
@@ -96,6 +111,13 @@ export class Player {
                 game.ambiance.water.volume(0);
             }
         } else {
+            this.wasInWater = true;
+            if (this.wasInAir && this.diveCooldown == 0) {
+                game.sfx.dive.play();
+                this.wasInAir = false;
+                this.diveCooldown = 1000;
+            }
+
             this.oxy -= dt * 100;
             if (this.oxy <= 0) {
                 this.oxy = 10000;
@@ -145,6 +167,7 @@ export class Player {
 
             if (!game.stats.found.includes(hiddenData)) {
                 game.stats.found.push(hiddenData);
+                game.sfx.discovery.play();
             }
 
             if (hiddenData == 100) {
