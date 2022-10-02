@@ -1,6 +1,12 @@
+@font-face {
+    font-family: gameFont;
+    src: url(Chalkboard-Regular.ttf);
+}
+
 body {
     margin: 0;
     background-color: #444;
+    font-family: gameFont;
 }
 
 .game-main {
@@ -22,6 +28,59 @@ body {
     color: #fff;
     text-align: center;
     justify-content: center;
+    align-items: center;
     padding: 20%;
     box-sizing: border-box;
+}
+
+.start-screen h1 {
+    font-size: 140px;
+    color: orange;
+    text-shadow: 5px 5px 0 gray;
+    margin: 20px;
+}
+
+.start-screen p {
+    font-size: 20px;
+}
+
+button {
+    display: inline-block;
+    width: 300px;
+    padding: 20px;
+    color: black;
+    background-color: white;
+    box-shadow: 5px 5px 0 gray;
+    font-family: gameFont;
+    font-size: 20px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.black-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: black;
+    transition: opacity 1s;
+    opacity: 1;
+    z-index: 100;
+}
+
+.black-box.hidden {
+    opacity: 0;
+}
+
+.black-box .message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(2deg);
+    width: 600px;
+    background-color: #ddd;
+    text-align: center;
+    padding: 20px;
+    padding-bottom: 30px;
+    border-radius: 10px;
 }

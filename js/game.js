@@ -4,6 +4,7 @@ import { Player } from './player.js';
 
 export class Game {
     #canvas = document.createElement('div');
+    #blackbox = document.createElement('div');
 
     size = {
         width: 0,
@@ -39,6 +40,11 @@ export class Game {
         this.#canvas.classList.add(_class);
         document.body.appendChild(this.#canvas);
 
+        // Add black-box
+        this.#blackbox.style.width = `${_width}px`;
+        this.#blackbox.style.height = `${_height}px`;
+        this.#blackbox.classList.add('black-box');
+
         // Save size
         this.size.width = _width;
         this.size.height = _height;
@@ -69,6 +75,9 @@ export class Game {
     }
 
     init() {
+        this.#canvas.appendChild(this.#blackbox);
+        this.drawInfo('start');
+
         // Add player
         this.level = new Level(this, this.#canvas);
         this.player = new Player(this.level.dom);
@@ -82,10 +91,64 @@ export class Game {
         this.ambiance.heart.play();
 
         // ACtivate keys
-        this.input.active = true;
+        //this.input.active = true;
 
         // Start loop
         window.requestAnimationFrame((_t) => { this.#update(_t); });
+    }
+
+    drawInfo(_screen) {
+        this.input.active = false;
+
+        if (_screen == 'start') {
+            this.#blackbox.innerHTML = `
+                <div class="message">
+                    <h1>Welcome to Oxylunky</h1>
+                    <p>
+                        The objective of the game is to explore
+                        the depths of the sea and find your way
+                        to the bottom to find whats there. That
+                        might seem simple, but with only a limited
+                        supply of oxygen, that might prove harder
+                        than you think.
+                    </p>
+                    <button onclick="myGame.drawInfo('tutor-1')">Next</button>
+                </div>
+            `;
+            this.#blackbox.classList.remove('hidden');
+        }
+
+        if (_screen == 'tutor-1') {
+            this.#blackbox.innerHTML = `
+            <div class="message">
+                <h1>Tutor 1</h1>
+                <p>
+                    This is some dummy things
+                </p>
+                <button onclick="myGame.drawInfo('none-release')">Let's Go!</button>
+            </div>
+            `;
+            this.#blackbox.classList.remove('hidden');
+        }
+
+        if (_screen == 'win') {
+            this.#blackbox.innerHTML = `
+            <div class="message">
+                <h1>Win message</h1>
+                <p>
+                    You won!
+                </p>
+                <button onclick="myGame.drawInfo('none-release')">Hide this</button>
+            </div>
+            `;
+            this.#blackbox.classList.remove('hidden');
+        }
+
+        if (_screen == 'none-release') {
+            this.input.active = true;
+
+            this.#blackbox.classList.add('hidden');
+        }
     }
 
     appendChild(_node) {
