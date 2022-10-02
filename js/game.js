@@ -11,10 +11,10 @@ export class Game {
     }
 
     ambiance = {
-        air: new Howl({ src: ['snd/amb_air.mp3'], loop: true }),
-        water: new Howl({ src: ['snd/amb_water.mp3'], loop: true }),
-        cave: new Howl({ src: ['snd/amb_cave.mp3'], loop: true }),
-        heart: new Howl({ src: ['snd/amb_heart.mp3'], loop: true }),
+        air: new Howl({ src: ['../snd/amb_air.mp3'], loop: true }),
+        water: new Howl({ src: ['../snd/amb_water.mp3'], loop: true }),
+        cave: new Howl({ src: ['../snd/amb_cave.mp3'], loop: true }),
+        heart: new Howl({ src: ['../snd/amb_heart.mp3'], loop: true }),
     }
 
     timer = {
