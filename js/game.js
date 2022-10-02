@@ -130,11 +130,52 @@ export class Game {
         if (_screen == 'tutor-1') {
             this.#blackbox.innerHTML = `
             <div class="message">
-                <h1>Tutor 1</h1>
+                <h1>Swimming around</h1>
                 <p>
-                    This is some dummy things
+                    To swim around, you just use the arrow-keys.
                 </p>
-                <button onclick="myGame.drawInfo('none-release')">Let's Go!</button>
+                <img src="gfx/tutor-1.png"/>
+                <p>
+                    Just press in the direction you want to move in and you'll go that way.
+                </p>
+                <button onclick="myGame.drawInfo('tutor-2')">Alright</button>
+            </div>
+            `;
+            this.#blackbox.classList.remove('hidden');
+        }
+
+        if (_screen == 'tutor-2') {
+            this.#blackbox.innerHTML = `
+            <div class="message">
+                <h1>Oxygen</h1>
+                <p>
+                    As soon as you are fully submerged your oxy will start to drop.
+                </p>
+                <img src="gfx/tutor-2.png"/>
+                <p>
+                    The tank holds 10 seconds of air. When the air is depleted, you'll
+                    fail and need to start over from the surface.
+                </p>
+                <button onclick="myGame.drawInfo('tutor-3')">Don't die, got it!</button>
+            </div>
+            `;
+            this.#blackbox.classList.remove('hidden');
+        }
+
+        if (_screen == 'tutor-3') {
+            this.#blackbox.innerHTML = `
+            <div class="message">
+                <h1>Air pockets</h1>
+                <p>
+                    To get further down, you'll need to find secret areas
+                    and hidden air pockets.
+                </p>
+                <img src="gfx/tutor-3.png"/>
+                <p>
+                    As soon as you swim into one, it will be revealed and
+                    stay visible during the rest of your session.
+                </p>
+                <button onclick="myGame.drawInfo('none-release')">Let's go!</button>
             </div>
             `;
             this.#blackbox.classList.remove('hidden');
