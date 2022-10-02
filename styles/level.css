@@ -100,6 +100,24 @@
     z-index: 3;
 }
 
+.tile.decoration-6 {
+    background-image: url(../gfx/eyes.png);
+    background-size: cover;
+    background-position: 0 0;
+    scale: -1.5 1.5;
+    z-index: 10;
+    animation: eyes 14s steps(20) infinite;
+}
+
+.tile.decoration-6 {
+    background-image: url(../gfx/eyes.png);
+    background-size: cover;
+    background-position: 0 0;
+    scale: 1.5;
+    z-index: 10;
+    animation: eyes 14s steps(20) infinite;
+}
+
 .dust,
 .dust-hidden {
     position: absolute;

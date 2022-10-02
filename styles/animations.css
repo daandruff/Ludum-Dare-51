@@ -158,3 +158,37 @@
         background-position-x: calc(100% * 6);
     }
 }
+
+@keyframes eyes {
+    0% {
+        opacity: 0;
+    }
+
+    69% {
+        opacity: 0;
+    }
+    70% {
+        opacity: 1;
+    }
+
+    79% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+    }
+
+    84% {
+        opacity: 0;
+    }
+    85% {
+        opacity: 1;
+    }
+
+    99% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
