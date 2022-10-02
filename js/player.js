@@ -100,6 +100,14 @@ export class Player {
             if (this.oxy <= 0) {
                 this.oxy = 10000;
                 this.setPosition(250, 1.6 * game.level.tileHeight);
+                game.stats.deaths += 1;
+                if (game.stats.deaths == 1) {
+                    game.drawInfo('death');
+                }else if (game.stats.deaths == 2) {
+                    game.drawInfo('death-2');
+                }else if (game.stats.deaths == 3) {
+                    game.drawInfo('death-3');
+                }
             }
 
             // Adjust ambiance
@@ -131,6 +139,18 @@ export class Player {
             allFoundBlocks.forEach(element => {
                 element.classList.add('found');
             })
+
+            if (!game.stats.found.includes(hiddenData)) {
+                game.stats.found.push(hiddenData);
+            }
+
+            if (hiddenData == 100) {
+                game.won = true;
+                game.ambiance.air.volume(1);
+                game.ambiance.water.volume(0);
+                game.ambiance.heart.volume(0);
+                game.drawInfo('win');
+            }
         }
 
         // Set player rotation

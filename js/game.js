@@ -9,14 +9,22 @@ export class Game {
     size = {
         width: 0,
         height: 0
-    }
+    };
+
+    won = false;
+
+    stats = {
+        deaths: 0,
+        found: [],
+        foundMax: 8
+    };
 
     ambiance = {
         air: new Howl({ src: [window.location.href + '/snd/amb_air.mp3'], loop: true }),
         water: new Howl({ src: [window.location.href + '/snd/amb_water.mp3'], loop: true }),
         cave: new Howl({ src: [window.location.href + '/snd/amb_cave.mp3'], loop: true }),
         heart: new Howl({ src: [window.location.href + '/snd/amb_heart.mp3'], loop: true }),
-    }
+    };
 
     timer = {
         start: Date.now(),
@@ -31,7 +39,7 @@ export class Game {
         up: false,
         down: false,
         search: false
-    }
+    };
 
     constructor(_width, _height, _class) {
         // Add element
@@ -77,6 +85,7 @@ export class Game {
     init() {
         this.#canvas.appendChild(this.#blackbox);
         this.drawInfo('start');
+        this.timer.start = Date.now();
 
         // Add player
         this.level = new Level(this, this.#canvas);
@@ -131,14 +140,64 @@ export class Game {
             this.#blackbox.classList.remove('hidden');
         }
 
-        if (_screen == 'win') {
+        if (_screen == 'death') {
             this.#blackbox.innerHTML = `
             <div class="message">
-                <h1>Win message</h1>
+                <h1>You didn't make it!</h1>
                 <p>
-                    You won!
+                    No worries though. All your progress is saved<br/>
+                    and you can try as many times as you like!<br/>
+                    Just keep swiming ;)
                 </p>
-                <button onclick="myGame.drawInfo('none-release')">Hide this</button>
+                <button onclick="myGame.drawInfo('none-release')">Phew!</button>
+            </div>
+            `;
+            this.#blackbox.classList.remove('hidden');
+        }
+
+        if (_screen == 'death-2') {
+            this.#blackbox.innerHTML = `
+            <div class="message">
+                <h1>Again?</h1>
+                <p>
+                    Didn't you do this once already?<br/>
+                    Are you sure you're looking in the<br/>
+                    correct spot?
+                </p>
+                <button onclick="myGame.drawInfo('none-release')">No?</button>
+            </div>
+            `;
+            this.#blackbox.classList.remove('hidden');
+        }
+
+        if (_screen == 'death-3') {
+            this.#blackbox.innerHTML = `
+            <div class="message">
+                <h1>Need some help?</h1>
+                <p>
+                    If you look carefully, hidden areas<br/>
+                    have a small tell to look for.<br/>
+                </p>
+                <button onclick="myGame.drawInfo('none-release')">Oh, cool thanks!</button>
+            </div>
+            `;
+            this.#blackbox.classList.remove('hidden');
+        }
+
+        if (_screen == 'win') {
+            let time = Date.now() - this.timer.start;
+
+            this.#blackbox.innerHTML = `
+            <div class="message">
+                <h1>Awesome!</h1>
+                <p>
+                    You made it to the depest part of the
+                    sea. You died ${this.stats.deaths} times and
+                    found ${this.stats.found.length} of ${this.stats.foundMax} secret areas.
+                    The trip took you ${Math.floor((time / 1000) / 60)} minutes and ${Math.floor(time / 1000) % 60} seconds.<br/>
+                    Think you can do it better?
+                </p>
+                <button onclick="myGame.drawInfo('none-release')">Maybe?</button>
             </div>
             `;
             this.#blackbox.classList.remove('hidden');
@@ -159,14 +218,16 @@ export class Game {
         this.#updateDelta();
         let dt = (this.timer.delta / 100.0);
 
-        // Update player position
-        this.player.update(dt, this);
+        if (!this.won) {
+            // Update player position
+            this.player.update(dt, this);
 
-        // Update oxytank
-        this.oxytank.update(this.player.oxy / 10000);
+            // Update oxytank
+            this.oxytank.update(this.player.oxy / 10000);
 
-        // Update level
-        this.level.update(dt, this);
+            // Update level
+            this.level.update(dt, this);
+        }
 
         // Update map position
         if (this.player.position.y > this.size.height / 2) {
