@@ -73,6 +73,33 @@
     animation: seaweed 1s steps(6) infinite;
 }
 
+.tile.decoration-3 {
+    background-image: url(../gfx/pillar.png);
+    background-size: cover;
+    background-position: 0 0;
+    scale: 2;
+    translate: 0 calc(var(--tileHeight) / 3 * -1);
+    z-index: 3;
+}
+
+.tile.decoration-4 {
+    background-image: url(../gfx/pillar.png);
+    background-size: cover;
+    background-position: 0 0;
+    scale: -1.3 1.3;
+    translate: 0 calc(var(--tileHeight) / 6 * -1);
+    z-index: 3;
+}
+
+.tile.decoration-5 {
+    background-image: url(../gfx/vines.png);
+    background-size: cover;
+    background-position: 0 0;
+    scale: 1.3;
+    translate: 0 calc(var(--tileHeight) / 4);
+    z-index: 3;
+}
+
 .dust,
 .dust-hidden {
     position: absolute;
