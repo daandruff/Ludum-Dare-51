@@ -16,13 +16,14 @@
             position: absolute;
             top: 0;
             left: 0;
-            opacity: 0.1;
+            opacity: 0.5;
             pointer-events: none;
         }
 
         .layer.active {
-            opacity: 1;
+            opacity: 0.75;
             pointer-events: all;
+            z-index: 10;
         }
 
         .tile {
@@ -115,9 +116,8 @@
                         e.preventDefault();
                         if (e.button == 0) {
                             data[y][x] = selectedValue;
+                            element.innerHTML = `${selectedValue == 0 ? '' : selectedValue}`;
                         }
-                        
-                        updateView();
                     });
 
                     dataDom.appendChild(element);
@@ -136,9 +136,8 @@
                         e.preventDefault();
                         if (e.button == 0) {
                             hidden[y][x] = selectedValue;
+                            element.innerHTML = `${selectedValue == 0 ? '' : selectedValue}`;
                         }
-                        
-                        updateView();
                     });
 
                     hiddenDom.appendChild(element);
@@ -157,9 +156,8 @@
                         e.preventDefault();
                         if (e.button == 0) {
                             decoration[y][x] = selectedValue;
+                            element.innerHTML = `${selectedValue == 0 ? '' : selectedValue}`;
                         }
-                        
-                        updateView();
                     });
 
                     decorationDom.appendChild(element);
