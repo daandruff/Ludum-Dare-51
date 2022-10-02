@@ -51,6 +51,10 @@
             background-color: blue;
         }
 
+        .tile.black {
+            background: black;
+        }
+
         .buttons {
             position: fixed;
             bottom: 0px;
@@ -111,11 +115,21 @@
                     element.style.top = `${y * (32 + 2)}px`;
                     element.style.left = `${x * (32 + 2)}px`;
                     element.innerHTML = `${val == 0 ? '' : val}`;
+                    if (val == 3) {
+                        element.classList.add('black');
+                    } else {
+                        element.classList.remove('black');
+                    }
 
                     element.addEventListener('mousedown', (e) => {
                         e.preventDefault();
                         if (e.button == 0) {
                             data[y][x] = selectedValue;
+                            if (selectedValue == 3) {
+                                element.classList.add('black');
+                            } else {
+                                element.classList.remove('black');
+                            }
                             element.innerHTML = `${selectedValue == 0 ? '' : selectedValue}`;
                         }
                     });
