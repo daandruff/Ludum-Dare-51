@@ -63,6 +63,16 @@
     animation: seaweed 1s steps(6) infinite;
 }
 
+.tile.decoration-2 {
+    background-image: url(../gfx/seaweed.png);
+    background-size: cover;
+    background-position: 0 0;
+    scale: 1.6;
+    z-index: 3;
+
+    animation: seaweed 1s steps(6) infinite;
+}
+
 .dust,
 .dust-hidden {
     position: absolute;
