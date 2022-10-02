@@ -100,6 +100,9 @@ export class Player {
             if (this.oxy <= 0) {
                 this.oxy = 10000;
                 this.setPosition(250, 1.6 * game.level.tileHeight);
+                this.velocity.x = 0;
+                this.velocity.y = 0;
+                this.dom.style.transform = `rotate(0deg)`;
                 game.stats.deaths += 1;
                 if (game.stats.deaths == 1) {
                     game.drawInfo('death');

@@ -99,15 +99,18 @@ export class Game {
         this.ambiance.cave.play();
         this.ambiance.heart.play();
 
-        // ACtivate keys
-        //this.input.active = true;
-
         // Start loop
         window.requestAnimationFrame((_t) => { this.#update(_t); });
     }
 
     drawInfo(_screen) {
-        this.input.active = false;
+        this.input = {
+            active: false,
+            up: false,
+            down: false,
+            left: false,
+            right: false
+        }
 
         if (_screen == 'start') {
             this.#blackbox.innerHTML = `
