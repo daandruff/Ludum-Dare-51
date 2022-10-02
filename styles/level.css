@@ -118,6 +118,15 @@
     animation: eyes 14s steps(20) infinite;
 }
 
+.tile.decoration-7 {
+    background-image: url(../gfx/ship.png);
+    background-size: cover;
+    background-position: 0 0;
+    width: calc(var(--tileHeight) * 4);
+    height: calc(var(--tileHeight) * 2);
+    z-index: 10;
+}
+
 .dust,
 .dust-hidden {
     position: absolute;

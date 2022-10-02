@@ -88,3 +88,11 @@ button {
 .black-box .message p {
     font-size: 22px;
 }
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url(gfx/overlay.png);
+    z-index: 30;
+}

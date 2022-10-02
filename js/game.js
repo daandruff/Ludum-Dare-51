@@ -5,6 +5,7 @@ import { Player } from './player.js';
 export class Game {
     #canvas = document.createElement('div');
     #blackbox = document.createElement('div');
+    #overlay = document.createElement('div');
 
     size = {
         width: 0,
@@ -16,7 +17,7 @@ export class Game {
     stats = {
         deaths: 0,
         found: [],
-        foundMax: 14
+        foundMax: 15
     };
 
     ambiance = {
@@ -53,6 +54,11 @@ export class Game {
         this.#blackbox.style.height = `${_height}px`;
         this.#blackbox.classList.add('black-box');
 
+        // Add overlay
+        this.#overlay.style.width = `${_width}px`;
+        this.#overlay.style.height = `${_height}px`;
+        this.#overlay.classList.add('overlay');
+
         // Save size
         this.size.width = _width;
         this.size.height = _height;
@@ -84,6 +90,7 @@ export class Game {
 
     init() {
         this.#canvas.appendChild(this.#blackbox);
+        this.#canvas.appendChild(this.#overlay);
         this.drawInfo('start');
         this.timer.start = Date.now();
 
