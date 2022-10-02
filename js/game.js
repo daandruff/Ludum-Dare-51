@@ -10,6 +10,13 @@ export class Game {
         height: 0
     }
 
+    ambiance = {
+        air: new Howl({ src: ['../snd/amb_air.wav'], html5: false, loop: true }),
+        water: new Howl({ src: ['../snd/amb_water.wav'], html5: false, loop: true }),
+        cave: new Howl({ src: ['../snd/amb_cave.wav'], html5: false, loop: true }),
+        heart: new Howl({ src: ['../snd/amb_heart.wav'], html5: false, loop: true }),
+    }
+
     timer = {
         start: Date.now(),
         lastFrame: Date.now(),
@@ -17,6 +24,7 @@ export class Game {
     };
 
     input = {
+        active: false,
         left: false,
         right: false,
         up: false,
@@ -37,11 +45,13 @@ export class Game {
 
         // Add event listeners for input
         document.addEventListener('keydown', (e) => {
-            if (e.code === 'ArrowLeft') { this.input.left = true; }
-            if (e.code === 'ArrowRight') { this.input.right = true; }
-            if (e.code === 'ArrowUp') { this.input.up = true; }
-            if (e.code === 'ArrowDown') { this.input.down = true; }
-            if (e.code === 'Space') { this.input.search = true; }
+            if (this.input.active) {
+                if (e.code === 'ArrowLeft') { this.input.left = true; }
+                if (e.code === 'ArrowRight') { this.input.right = true; }
+                if (e.code === 'ArrowUp') { this.input.up = true; }
+                if (e.code === 'ArrowDown') { this.input.down = true; }
+                if (e.code === 'Space') { this.input.search = true; }
+            }
         });
         document.addEventListener('keyup', (e) => {
             if (e.code === 'ArrowLeft') { this.input.left = false; }
@@ -50,6 +60,12 @@ export class Game {
             if (e.code === 'ArrowDown') { this.input.down = false; }
             if (e.code === 'Space') { this.input.search = false; }
         });
+
+        // Set all sound levels to 0
+        this.ambiance.air.volume(1);
+        this.ambiance.water.volume(0);
+        this.ambiance.cave.volume(0);
+        this.ambiance.heart.volume(0);
     }
 
     init() {
@@ -59,8 +75,21 @@ export class Game {
         this.oxytank = new Oxytank(this.#canvas);
         this.player.setPosition(250, 1.6 * this.level.tileHeight);
 
+        // Start all sounds
+        this.ambiance.air.play();
+        this.ambiance.water.play();
+        this.ambiance.cave.play();
+        this.ambiance.heart.play();
+
+        // ACtivate keys
+        this.input.active = true;
+
         // Start loop
         window.requestAnimationFrame((_t) => { this.#update(_t); });
+    }
+
+    appendChild(_node) {
+        this.#canvas.appendChild(_node);
     }
 
     #update(_t) {

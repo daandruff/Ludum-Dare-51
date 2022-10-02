@@ -85,12 +85,27 @@ export class Player {
             if (this.oxy >= 10000) {
                 this.oxy = 10000;
             }
+
+            // Adjust ambiance
+            if (this.position.y < 150) {
+                game.ambiance.air.volume(1);
+                game.ambiance.water.volume(0);
+                game.ambiance.cave.volume(0);
+            } else {
+                game.ambiance.cave.volume(this.oxy / 10000);
+                game.ambiance.water.volume(0);
+            }
         } else {
             this.oxy -= dt * 100;
             if (this.oxy <= 0) {
                 this.oxy = 10000;
                 this.setPosition(250, 1.6 * game.level.tileHeight);
             }
+
+            // Adjust ambiance
+            game.ambiance.water.volume(1);
+            game.ambiance.air.volume(0);
+            game.ambiance.cave.volume(0);
 
             // Add bubble particles
             this.bubble -= dt * 100;
@@ -105,6 +120,9 @@ export class Player {
                 this.bubble = Math.random() * 250;
             }
         }
+
+        // Adjust heartbeat
+        game.ambiance.heart.volume(1 - this.oxy / 10000);
 
         // Check hidden
         if (game.level.hidden[currentTileY] && game.level.hidden[currentTileY][currentTileX]) {
