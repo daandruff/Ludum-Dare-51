@@ -16,7 +16,7 @@ export class Game {
     stats = {
         deaths: 0,
         found: [],
-        foundMax: 8
+        foundMax: 14
     };
 
     ambiance = {
