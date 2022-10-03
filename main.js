@@ -1,7 +1,7 @@
 import { Game } from './js/game.js';
 
 window.addEventListener('load', () => {
-    window.myGame = new Game(1280, 720, 'game-main');
+    window.myGame = new Game(948, 533, 'game-main');
 
     let startScreen = document.createElement('div');
     startScreen.classList.add('start-screen');

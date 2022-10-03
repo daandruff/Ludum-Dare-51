@@ -74,15 +74,16 @@ button {
 
 .black-box .message {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(2deg);
+    top: 25%;
+    left: 25%;
+    transform: translate(-25%, -60%) rotate(2deg);
     width: 600px;
     background-color: #ddd;
     text-align: center;
     padding: 20px;
     padding-bottom: 30px;
     border-radius: 10px;
+    scale: 0.5;
 }
 
 .black-box .message p {
