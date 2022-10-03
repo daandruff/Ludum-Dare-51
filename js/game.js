@@ -258,7 +258,9 @@ export class Game {
                     sea. You died ${this.stats.deaths} times and
                     found ${this.stats.found.length - 1} of ${this.stats.foundMax} secret areas.
                     The trip took you ${Math.floor((time / 1000) / 60)} minutes and ${Math.floor(time / 1000) % 60} seconds.<br/>
-                    Think you can do it better?
+                    Think you can do it better?<br/>
+                    <br/>
+                    (Special thanks to <a href="https://ldjam.com/users/vidarn/games" target="_blank">@vidarn</a> for keeping me company and supporting me throughout the game jam!)
                 </p>
                 <button onclick="location.reload()">Maybe?</button>
             </div>
